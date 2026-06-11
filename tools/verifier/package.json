@@ -1,0 +1,20 @@
+{
+  "name": "ecclesia-verify",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone verifier for Ecclesia Vote audit bundles. Zero runtime dependencies.",
+  "bin": {
+    "ecclesia-verify": "./ecclesia-verify.mjs"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "echo 'verifier is plain ESM JS (zero deps) — no typecheck'",
+    "lint": "echo 'no lint in tools/verifier'"
+  },
+  "devDependencies": {
+    "@ecclesia/ballot-engine": "workspace:*",
+    "@ecclesia/audit": "workspace:*",
+    "vitest": "^2.1.8"
+  }
+}

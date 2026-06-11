@@ -1,0 +1,21 @@
+project_id = "ecclesia-vote"
+
+[db]
+port = 54322
+major_version = 15
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "identity", "ballotbox"]
+extra_search_path = ["public"]
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+
+# pgTAP policy tests live in supabase/tests and run via `supabase test db`.

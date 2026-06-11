@@ -1,0 +1,13 @@
+{
+  "name": "@ecclesia/db",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "db:start": "supabase start",
+    "db:reset": "supabase db reset",
+    "db:test": "supabase test db",
+    "test": "command -v supabase >/dev/null 2>&1 && supabase test db || echo '[skip] supabase CLI not found — pgTAP runs in CI / with the Supabase stack'",
+    "typecheck": "echo 'no TypeScript in @ecclesia/db'",
+    "lint": "echo 'no lint in @ecclesia/db'"
+  }
+}
