@@ -75,13 +75,13 @@ export default async function ResultsPage({ params }: { params: Promise<{ electi
     rows = [
       {
         key: "yes",
-        label: "Yes 👍",
+        label: "Yes",
         votes: find("yes"),
         barClass: "bg-gradient-to-r from-mint-400 to-mint-600",
       },
       {
         key: "no",
-        label: "No 👎",
+        label: "No",
         votes: find("no"),
         barClass: "bg-gradient-to-r from-coral-400 to-coral-600",
       },
@@ -89,7 +89,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ electi
   }
   rows.push({
     key: "abstain",
-    label: "Abstain 🤷",
+    label: "Abstain",
     votes: t.abstain,
     barClass: "bg-gradient-to-r from-royal-200 to-royal-300",
   });
@@ -101,8 +101,8 @@ export default async function ResultsPage({ params }: { params: Promise<{ electi
           <h1 className="text-2xl font-black tracking-tight text-ink">{el.title}</h1>
           <p className="text-sm font-semibold text-ink/55">
             {stillOpen
-              ? "Live results — advisory vote, still open."
-              : "Final results — advisory vote."}
+              ? "Live results. Advisory vote, still open."
+              : "Final results. Advisory vote."}
           </p>
         </div>
         {stillOpen && (
@@ -114,7 +114,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ electi
       </header>
 
       {leader && (
-        <div className="bg-dots animate-pop-in overflow-hidden rounded-3xl from-sunshine-400 via-coral-400 to-blush-500 p-6 text-white shadow-lift">
+        <div className="bg-flux animate-pop-in overflow-hidden rounded-3xl p-6 text-white shadow-lift">
           <div className="flex items-center gap-4">
             <EccoAvatar
               size={72}
@@ -123,7 +123,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ electi
             />
             <div>
               <div className="text-xs font-extrabold uppercase tracking-wide text-white/85">
-                {stillOpen ? "Currently leading" : "Winner"} 👑
+                {stillOpen ? "Currently leading" : "Winner"}
               </div>
               <div className="text-2xl font-black drop-shadow-sm">{leader.name}</div>
               <div className="text-sm font-bold text-white/85">
@@ -158,16 +158,16 @@ export default async function ResultsPage({ params }: { params: Promise<{ electi
       </div>
 
       <div className="card">
-        <h2 className="mb-1 text-lg font-black text-ink">Find my receipt 🔎</h2>
+        <h2 className="mb-1 text-lg font-black text-ink">Find my receipt</h2>
         <p className="mb-3 text-sm font-semibold text-ink/55">
-          Paste any version of the receipt you built — confirm your ballot is in this count.
+          Paste any version of the receipt you built to confirm your ballot is in this count.
         </p>
         <ReceiptSearch electionId={el.electionId} search={searchReceipt} example={exampleReceipt} />
       </div>
 
       <details className="card group">
         <summary className="flex cursor-pointer items-center justify-between text-lg font-black text-ink">
-          Verification artifacts 🤓
+          Verification artifacts
           <span className="text-sm font-bold text-royal-500 transition group-open:rotate-180">
             ▾
           </span>

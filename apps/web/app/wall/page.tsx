@@ -12,10 +12,10 @@ export default async function WallPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <header>
-        <h1 className="text-2xl font-black tracking-tight text-ink">The Wall of Voters 🧱</h1>
+        <h1 className="text-2xl font-black tracking-tight text-ink">The Wall of Voters</h1>
         <p className="mt-1 text-sm font-semibold text-ink/55">
           Every counted ballot in every election, receipt by receipt. Public on purpose: it's how
-          you check you're in — and how everyone checks nobody was added.
+          you check you're in, and how everyone checks nobody was added.
         </p>
       </header>
 

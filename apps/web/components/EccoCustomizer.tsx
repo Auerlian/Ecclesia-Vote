@@ -23,7 +23,7 @@ const ACCESSORY_LABELS: Record<EccoAccessory, string> = {
   flower: "Flower",
 };
 
-const EXPRESSION_LABELS = { happy: "Happy 🙂", joy: "Joyful 😄", wink: "Winky 😉" } as const;
+const EXPRESSION_LABELS = { happy: "Happy", joy: "Joyful", wink: "Wink" } as const;
 
 /** The customisable personal Ecco from the pitch deck. Lives entirely in localStorage. */
 export function EccoCustomizer() {
@@ -34,15 +34,15 @@ export function EccoCustomizer() {
       <header>
         <h1 className="text-2xl font-black tracking-tight text-ink">Your Ecco</h1>
         <p className="text-sm font-semibold text-ink/55">
-          Your voting buddy. Vote in elections to unlock the full wardrobe — every ballot earns
+          Your voting companion. Vote in elections to unlock the full wardrobe; every ballot earns
           bragging rights.
         </p>
       </header>
 
       {/* preview */}
       <div className="card overflow-hidden p-0">
-        <div className="bg-dots flex justify-center from-royal-400 via-grape-500 to-blush-500 py-8">
-          <Ecco size={150} {...profile.look} className="animate-float drop-shadow-xl" />
+        <div className="bg-flux flex justify-center py-8">
+          <Ecco size={150} {...profile.look} className="drop-shadow-xl" />
         </div>
         <div className="flex flex-col items-center gap-2 p-4 sm:flex-row sm:justify-between">
           <label className="flex w-full items-center gap-2 sm:w-auto">
@@ -59,8 +59,8 @@ export function EccoCustomizer() {
             className={`chip ${profile.hasVoted ? "bg-mint-100 text-mint-700" : "bg-sunshine-100 text-sunshine-800"}`}
           >
             {profile.hasVoted
-              ? "🗳️ Demo voter — wardrobe unlocked!"
-              : "🔒 Vote once to unlock the wardrobe"}
+              ? "Demo voter. Wardrobe unlocked"
+              : "Vote once to unlock the wardrobe"}
           </span>
         </div>
       </div>
@@ -161,8 +161,8 @@ export function EccoCustomizer() {
       </section>
 
       <p className="card text-xs font-semibold text-ink/50">
-        🔐 Your Ecco lives only in <strong>this browser</strong> — nothing about it is sent to any
-        server. A mascot should be fun, not a tracking device.
+        Your Ecco lives only in <strong>this browser</strong>. Nothing about it is sent to any
+        server: a mascot should be fun, not a tracking device.
       </p>
     </div>
   );

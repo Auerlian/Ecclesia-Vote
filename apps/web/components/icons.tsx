@@ -156,6 +156,24 @@ export function CheckCircleIcon(p: IconProps) {
   );
 }
 
+export function XCircleIcon(p: IconProps) {
+  return (
+    <svg {...base(p)}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="m9 9 6 6M15 9l-6 6" />
+    </svg>
+  );
+}
+
+export function MinusCircleIcon(p: IconProps) {
+  return (
+    <svg {...base(p)}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M8.5 12h7" />
+    </svg>
+  );
+}
+
 export function PartyIcon(p: IconProps) {
   return (
     <svg {...base(p)}>

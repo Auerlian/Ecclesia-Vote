@@ -54,7 +54,7 @@ export function CandidateCard({
       </div>
 
       <p className="mt-3 rounded-2xl bg-sunshine-50 px-3 py-2 text-xs font-semibold text-ink/70">
-        <span className="mr-1 font-extrabold text-sunshine-700">✨ Quick read:</span>
+        <span className="mr-1 font-extrabold text-sunshine-700">In short:</span>
         {c.summary}
       </p>
 
@@ -63,7 +63,7 @@ export function CandidateCard({
         className="mt-2 text-xs font-extrabold text-royal-600 hover:underline"
         aria-expanded={open}
       >
-        {open ? "Hide manifesto ↑" : "Read full manifesto ↓"}
+        {open ? "Hide manifesto" : "Read full manifesto"}
       </button>
       {open && <p className="mt-2 text-sm leading-relaxed text-ink/75">{c.manifesto}</p>}
     </div>

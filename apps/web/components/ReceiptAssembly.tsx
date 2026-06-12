@@ -36,10 +36,10 @@ export function ReceiptAssembly({
   return (
     <div className="space-y-4 animate-pop-in">
       <div>
-        <h2 className="text-lg font-black text-ink">Build your receipt ✂️</h2>
+        <h2 className="text-lg font-black text-ink">Build your receipt</h2>
         <p className="text-sm font-semibold text-ink/55">
-          Pick whichever words and numbers you like best —{" "}
-          <strong className="text-ink">every option seals the exact same ballot</strong>, which is
+          Pick whichever words and numbers you like best.{" "}
+          <strong className="text-ink">Every option seals the exact same ballot</strong>, which is
           what lets you show anyone any version without ever revealing your vote.
         </p>
       </div>
@@ -75,7 +75,7 @@ export function ReceiptAssembly({
 
       <div className="flex items-center gap-3">
         <button onClick={seal} disabled={chosen !== total} className="btn-coral">
-          🧧 Seal my receipt
+          Seal my receipt
         </button>
         <div className="flex items-center gap-2">
           <div className="h-2 w-24 overflow-hidden rounded-full bg-royal-100">

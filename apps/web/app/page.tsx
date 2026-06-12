@@ -12,6 +12,7 @@ import {
   BookIcon,
   ChartIcon,
   ClockIcon,
+  LockIcon,
   MegaphoneIcon,
   ShieldIcon,
   UserIcon,
@@ -48,7 +49,7 @@ export default async function Home() {
     <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)_290px]">
       {/* ---- left rail ------------------------------------------------- */}
       <aside className="hidden lg:block">
-        <div className="sticky top-32 space-y-4">
+        <div className="sticky top-20 space-y-4">
           <Link
             href={`/org/${DEMO_ORG_SLUG}`}
             className="card card-hover flex items-center gap-3 p-4 no-underline"
@@ -105,7 +106,7 @@ export default async function Home() {
           >
             What should your society decide next?
           </Link>
-          <span className="chip hidden bg-grape-100 text-grape-700 sm:inline-flex">v0.2 ✨</span>
+          <span className="chip hidden bg-grape-100 text-grape-700 sm:inline-flex">v0.2</span>
         </div>
 
         {/* pinned: presidential election */}
@@ -127,10 +128,10 @@ export default async function Home() {
           }
         >
           <h2 className="text-lg font-black leading-snug text-ink">
-            🗳️ {president.bundle.election.title} is OPEN!
+            {president.bundle.election.title} is open
           </h2>
           <p className="mt-1 text-sm font-semibold text-ink/65">
-            Four candidates. One ballot box. Your call — and only you will ever know what it was.
+            Four candidates, one ballot box. Your call, and only you will ever know what it was.
           </p>
           <div className="mt-3 flex items-center gap-1">
             {PRESIDENT_CANDIDATES.map((c) => (
@@ -208,14 +209,14 @@ export default async function Home() {
             </>
           }
         >
-          <div className="rounded-2xl bg-gradient-to-br from-royal-500 to-grape-600 p-5 text-white">
-            <div className="text-2xl">🤫</div>
-            <h3 className="mt-1 text-base font-black leading-snug">
-              Your receipt proves your vote is counted — and can never reveal what it was.
+          <div className="bg-flux rounded-2xl p-5 text-white">
+            <LockIcon size={26} className="text-white/90" />
+            <h3 className="mt-2 text-base font-black leading-snug">
+              Your receipt proves your vote is counted, and can never reveal what it was.
             </h3>
             <p className="mt-1.5 text-sm font-semibold text-white/80">
               You build it yourself from words and numbers, every version seals the same ballot, and
-              it shows up on the public wall. Coercion-proof by design.
+              it appears on the public wall. Coercion-proof by design.
             </p>
           </div>
         </FeedPost>
@@ -238,11 +239,11 @@ export default async function Home() {
           }
         >
           <h2 className="text-base font-black leading-snug text-ink">
-            📜 {bylaws.bundle.election.title}
+            {bylaws.bundle.election.title}
           </h2>
           <p className="mt-1 text-sm font-semibold text-ink/65">
-            The committee proposes new bylaws — clearer roles, faster decisions, fewer all-caps
-            email threads. The vote is advisory and closes today.
+            The committee proposes new bylaws: clearer roles, faster decisions, shorter email
+            threads. The vote is advisory and closes today.
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <Link href={`/vote/${bylaws.voteToken}`} className="btn-primary">
@@ -308,8 +309,8 @@ export default async function Home() {
           }
         >
           <p className="text-sm font-semibold text-ink/65">
-            {president.bundle.tally.accepted} receipts and counting on the presidential wall — each
-            one a sealed ballot with its own little Ecco. Spot yours, never reveal it. 🧱
+            {president.bundle.tally.accepted} receipts and counting on the presidential wall, each
+            one a sealed ballot with its own Ecco. Spot yours; reveal nothing.
           </p>
           <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-6">
             {wallPreview.map((b) => (
@@ -333,7 +334,7 @@ export default async function Home() {
           }
           author="Ecco"
           verified
-          meta="Ecclesia tips · for sceptics (we love sceptics)"
+          meta="Ecclesia tips · for sceptics (we like sceptics)"
           actions={
             <>
               <CheerButton id="post-edu-audit" />
@@ -344,12 +345,12 @@ export default async function Home() {
             </>
           }
         >
-          <div className="rounded-2xl bg-gradient-to-br from-mint-500 to-royal-600 p-5 text-white">
-            <div className="text-2xl">🕵️</div>
-            <h3 className="mt-1 text-base font-black leading-snug">Don't trust us. Check us.</h3>
+          <div className="bg-flux rounded-2xl p-5 text-white">
+            <ShieldIcon size={26} className="text-white/90" />
+            <h3 className="mt-2 text-base font-black leading-snug">Don't trust us. Check us.</h3>
             <p className="mt-1.5 text-sm font-semibold text-white/80">
               Download the audit bundle and recompute the whole result on your own machine with one
-              command. If our number and your number disagree — yours wins.
+              command. If our number and your number disagree, yours wins.
             </p>
           </div>
         </FeedPost>
@@ -357,7 +358,7 @@ export default async function Home() {
 
       {/* ---- right rail -------------------------------------------------- */}
       <aside className="hidden lg:block">
-        <div className="sticky top-32 space-y-4">
+        <div className="sticky top-20 space-y-4">
           <YourEccoCard />
 
           <div className="card space-y-3 p-4">
@@ -411,7 +412,7 @@ export default async function Home() {
           </div>
 
           <p className="px-2 text-[11px] font-semibold leading-relaxed text-ink/35">
-            Nobody — not organisers, not admins, not Ecco — can see how you voted. Receipts prove
+            Nobody, not organisers, not admins, not Ecco, can see how you voted. Receipts prove
             inclusion only.
           </p>
         </div>

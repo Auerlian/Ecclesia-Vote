@@ -14,10 +14,10 @@ export default async function BoardPage({ params }: { params: Promise<{ election
   return (
     <div className="mx-auto max-w-4xl space-y-5">
       <header>
-        <h1 className="text-2xl font-black tracking-tight text-ink">The Wall of Voters 🧱</h1>
+        <h1 className="text-2xl font-black tracking-tight text-ink">The Wall of Voters</h1>
         <p className="mt-1 text-sm font-semibold text-ink/55">
-          {bundle.election.title} — every sealed ballot gets a receipt and its own little Ecco,
-          published here for anyone to check.
+          {bundle.election.title}. Every sealed ballot gets a receipt and its own Ecco, published
+          here for anyone to check.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <span className="chip bg-mint-100 text-mint-700">{counted} counted</span>
@@ -48,9 +48,7 @@ export default async function BoardPage({ params }: { params: Promise<{ election
               {entry.receiptPhrase}
             </span>
             {entry.isReplaced && (
-              <span className="chip bg-sunshine-100 text-[10px] text-sunshine-800">
-                🔄 re-voted
-              </span>
+              <span className="chip bg-sunshine-100 text-[10px] text-sunshine-800">re-voted</span>
             )}
           </div>
         ))}
@@ -68,7 +66,7 @@ export default async function BoardPage({ params }: { params: Promise<{ election
       </div>
 
       <p className="card text-xs font-semibold text-ink/50">
-        A receipt on this wall says “a ballot with this phrase is sealed in the box” — nothing else.
+        A receipt on this wall says one thing: a ballot with this phrase is sealed in the box.
         Phrases are vote-independent by construction, so the wall can be fully public without
         leaking a single choice.
       </p>

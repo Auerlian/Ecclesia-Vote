@@ -15,10 +15,10 @@ export default async function AuditPage({ params }: { params: Promise<{ election
           <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-mint-100 text-mint-700">
             <ShieldIcon size={22} />
           </span>
-          <h1 className="text-2xl font-black tracking-tight text-ink">The audit room 🔬</h1>
+          <h1 className="text-2xl font-black tracking-tight text-ink">The audit room</h1>
         </div>
         <p className="mt-2 text-sm font-semibold text-ink/55">
-          {bundle.election.title} — everything a third party needs to recompute this result, with no
+          {bundle.election.title}: everything a third party needs to recompute this result, with no
           access to our database or app code. Scepticism welcome; bring your own laptop.
         </p>
       </header>
@@ -38,7 +38,7 @@ export default async function AuditPage({ params }: { params: Promise<{ election
           ))}
         </div>
         <a href={`/e/${electionId}/audit/bundle`} className="btn-mint mt-4">
-          ⬇️ Download bundle (JSON)
+          Download bundle (JSON)
         </a>
       </div>
 
@@ -67,8 +67,9 @@ node tools/verifier/ecclesia-verify.mjs <bundle-directory>
       </div>
 
       <p className="card text-xs font-semibold text-ink/55">
-        💡 The bundle deliberately contains <strong>no receipt-phrase ↔ ballot link</strong> and no
-        voter identities — you can verify the count without ever being able to unmask a voter.
+        The bundle deliberately contains <strong>no link from receipt phrases to ballots</strong>{" "}
+        and no voter identities, so you can verify the count without ever being able to unmask a
+        voter.
       </p>
     </div>
   );

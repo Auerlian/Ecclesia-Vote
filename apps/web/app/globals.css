@@ -58,16 +58,48 @@ a {
     display: none;
   }
 
-  /* Confetti-dot texture over a brand gradient, for hero/cover areas. Composes the two
-     image layers itself (a separate bg-gradient-* utility would fight over background-image),
-     so pair it with from-* / to-* colour stops only. */
-  .bg-dots {
+  /* The flux: a diffused, multicoloured haze for hero and cover areas. Layered radial
+     gradients drift slowly over a deep base, like an undecided mind settling. */
+  .bg-flux {
+    background-color: #2740a8;
     background-image:
-      radial-gradient(rgba(255, 255, 255, 0.28) 1.5px, transparent 1.5px),
-      linear-gradient(135deg, var(--tw-gradient-stops, #3d6bff, #8b4dff));
+      radial-gradient(42% 55% at 18% 20%, rgba(56, 189, 248, 0.55), transparent 70%),
+      radial-gradient(48% 60% at 84% 16%, rgba(248, 61, 142, 0.5), transparent 72%),
+      radial-gradient(52% 64% at 72% 88%, rgba(166, 116, 255, 0.6), transparent 72%),
+      radial-gradient(44% 58% at 24% 82%, rgba(54, 206, 150, 0.42), transparent 72%),
+      linear-gradient(125deg, #2b50e8 0%, #6822ce 56%, #e0226f 130%);
     background-size:
-      18px 18px,
+      150% 150%,
+      150% 150%,
+      150% 150%,
+      150% 150%,
       100% 100%;
+    animation: flux-drift 18s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes flux-drift {
+  0% {
+    background-position:
+      0% 0%,
+      100% 0%,
+      100% 100%,
+      0% 100%,
+      0 0;
+  }
+  100% {
+    background-position:
+      70% 45%,
+      35% 40%,
+      55% 55%,
+      55% 50%,
+      0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-flux {
+    animation: none;
   }
 }
 

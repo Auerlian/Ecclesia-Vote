@@ -25,7 +25,7 @@ export default async function VotePage({ params }: { params: Promise<{ token: st
       </div>
       <p className="text-sm font-semibold text-ink/55">
         The full cast-as-intended ceremony: encrypt, optionally audit, seal with your own receipt.
-        This demo ballot isn't persisted — it exists to prove the experience.
+        This demo ballot isn't persisted; it exists to prove the experience.
       </p>
 
       <VoteFlow
