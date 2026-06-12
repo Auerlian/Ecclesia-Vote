@@ -11,10 +11,13 @@ export function PrototypeBanner() {
   return (
     <div
       role="alert"
-      className="sticky top-0 z-50 border-b border-amber-600 bg-amber-400 px-4 py-2 text-center text-sm text-amber-950"
+      className="border-b border-sunshine-300 bg-sunshine-100 px-4 py-1.5 text-center text-[11px] font-bold leading-snug text-sunshine-800"
     >
-      <strong>Prototype security</strong> · engine <code className="font-mono">{activeEngine.engineId}</code>{" "}
-      (no real encryption yet). {PROTOTYPE_DISCLAIMER}
+      <span className="mr-1 rounded-full bg-sunshine-300/60 px-2 py-0.5 font-extrabold uppercase tracking-wide text-sunshine-900">
+        Prototype
+      </span>
+      engine <code className="font-mono">{activeEngine.engineId}</code> — no real encryption yet.{" "}
+      {PROTOTYPE_DISCLAIMER}
     </div>
   );
 }

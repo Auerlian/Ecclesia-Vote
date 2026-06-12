@@ -1,49 +1,59 @@
-import { getDemo } from "@/lib/demo";
+import { ShieldIcon } from "@/components/icons";
+import { getDemoElection } from "@/lib/demo";
 
-export const metadata = { title: "Audit bundle · Ecclesia Vote" };
+export const metadata = { title: "Audit room" };
 
-export default async function AuditPage({
-  params,
-}: {
-  params: Promise<{ electionId: string }>;
-}) {
+export default async function AuditPage({ params }: { params: Promise<{ electionId: string }> }) {
   const { electionId } = await params;
-  const { bundle } = await getDemo();
+  const { bundle } = await getDemoElection(electionId);
   const m = bundle.manifest;
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Audit bundle</h1>
-        <p className="text-sm text-slate-600">
-          Everything a third party needs to recompute this result — with no access to our database
-          or app code.
-        </p>
-      </div>
-
-      <div className="card space-y-2">
-        <div className="flex flex-wrap gap-6 text-sm">
-          <div><span className="font-semibold">{bundle.ballots.length}</span> ballot records</div>
-          <div><span className="font-semibold">{bundle.credentials.length}</span> public credentials</div>
-          <div><span className="font-semibold">{bundle.auditChain.length}</span> audit events</div>
-          <div><span className="font-semibold">{bundle.board.length}</span> receipts</div>
+    <div className="mx-auto max-w-3xl space-y-5">
+      <header>
+        <div className="flex items-center gap-2">
+          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-mint-100 text-mint-700">
+            <ShieldIcon size={22} />
+          </span>
+          <h1 className="text-2xl font-black tracking-tight text-ink">The audit room 🔬</h1>
         </div>
-        <a
-          href={`/e/${electionId}/audit/bundle`}
-          className="inline-block rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white no-underline"
-        >
-          Download bundle (JSON)
+        <p className="mt-2 text-sm font-semibold text-ink/55">
+          {bundle.election.title} — everything a third party needs to recompute this result, with no
+          access to our database or app code. Scepticism welcome; bring your own laptop.
+        </p>
+      </header>
+
+      <div className="card">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {[
+            { n: bundle.ballots.length, label: "ballot records" },
+            { n: bundle.credentials.length, label: "public credentials" },
+            { n: bundle.auditChain.length, label: "audit events" },
+            { n: bundle.board.length, label: "receipts" },
+          ].map((s) => (
+            <div key={s.label} className="rounded-2xl bg-royal-50 py-3 text-center">
+              <div className="text-xl font-black tabular-nums text-royal-700">{s.n}</div>
+              <div className="text-[11px] font-bold text-ink/45">{s.label}</div>
+            </div>
+          ))}
+        </div>
+        <a href={`/e/${electionId}/audit/bundle`} className="btn-mint mt-4">
+          ⬇️ Download bundle (JSON)
         </a>
       </div>
 
       <div className="card">
-        <h2 className="mb-2 text-lg font-semibold">Re-verify it yourself</h2>
-        <p className="mb-3 text-sm text-slate-600">
-          The <code className="font-mono">ecclesia-verify</code> tool has zero dependency on this
-          app. Point it at a bundle directory; it exits 0 only if every check passes.
+        <h2 className="mb-2 text-lg font-black text-ink">Re-verify it yourself</h2>
+        <p className="mb-3 text-sm font-semibold text-ink/60">
+          The{" "}
+          <code className="rounded bg-royal-50 px-1.5 py-0.5 font-mono text-xs">
+            ecclesia-verify
+          </code>{" "}
+          tool has zero dependency on this app. Point it at a bundle directory; it exits 0 only if
+          every check passes.
         </p>
-        <pre className="overflow-x-auto rounded-lg bg-ink p-4 text-xs text-slate-100">
-{`# from the repo:
+        <pre className="overflow-x-auto rounded-2xl bg-ink p-4 text-xs leading-relaxed text-royal-100">
+          {`# from the repo:
 node tools/verifier/ecclesia-verify.mjs <bundle-directory>
 
 # it checks:
@@ -55,6 +65,11 @@ node tools/verifier/ecclesia-verify.mjs <bundle-directory>
         </pre>
         <p className="mt-3 hashmono">tally hash · {m.tallyHash}</p>
       </div>
+
+      <p className="card text-xs font-semibold text-ink/55">
+        💡 The bundle deliberately contains <strong>no receipt-phrase ↔ ballot link</strong> and no
+        voter identities — you can verify the count without ever being able to unmask a voter.
+      </p>
     </div>
   );
 }
