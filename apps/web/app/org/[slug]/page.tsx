@@ -18,7 +18,7 @@ export default async function OrgPage({ params }: { params: Promise<{ slug: stri
     <div className="mx-auto max-w-3xl space-y-5">
       {/* cover + identity, like a society page */}
       <div className="card overflow-hidden p-0">
-        <div className="bg-dots h-28 from-royal-500 via-grape-500 to-blush-500 sm:h-36" />
+        <div className="bg-flux h-28 sm:h-36" />
         <div className="px-5 pb-5">
           <div className="-mt-10 flex items-end gap-4">
             <EccoAvatar
@@ -111,7 +111,7 @@ export default async function OrgPage({ params }: { params: Promise<{ slug: stri
       </section>
 
       <p className="card text-xs font-semibold text-ink/55">
-        🛡️ Organisers see turnout and audit signals only — <strong>never</strong> how any individual
+        Organisers see turnout and audit signals only, <strong>never</strong> how any individual
         voted. By database design, no admin role has a read path to a vote choice (INV-10).
       </p>
     </div>

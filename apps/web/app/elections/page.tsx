@@ -14,7 +14,7 @@ export default async function ElectionsPage() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <header className="flex items-center gap-4">
-        <Ecco size={72} petal="#FF5C39" expression="joy" className="animate-float" />
+        <Ecco size={72} petal="#FF5C39" expression="joy" />
         <div>
           <h1 className="text-2xl font-black tracking-tight text-ink">Elections</h1>
           <p className="text-sm font-semibold text-ink/55">
@@ -29,11 +29,7 @@ export default async function ElectionsPage() {
           const isCandidateRace = el.voteType === "multiple_choice";
           return (
             <article key={el.electionId} className="card card-hover overflow-hidden p-0">
-              <div
-                className={`bg-dots flex items-center justify-between px-5 py-2.5 text-white ${
-                  isCandidateRace ? "from-coral-500 to-blush-500" : "from-royal-500 to-grape-500"
-                }`}
-              >
+              <div className="bg-flux flex items-center justify-between px-5 py-2.5 text-white">
                 <span className="text-xs font-extrabold uppercase tracking-wide">
                   {isCandidateRace ? "Election · choose one candidate" : "Referendum · yes / no"}
                 </span>
@@ -114,7 +110,7 @@ export default async function ElectionsPage() {
       </div>
 
       <p className="card text-sm font-semibold text-ink/60">
-        🔐 <strong className="text-ink">Why it's safe:</strong> your choice is encrypted before it
+        <strong className="text-ink">Why it's safe:</strong> your choice is encrypted before it
         leaves your browser, your receipt proves it was counted without revealing it, and anyone can
         recompute the result from the public audit bundle.{" "}
         <Link href="/how-it-works" className="font-extrabold text-royal-600">

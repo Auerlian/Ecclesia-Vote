@@ -7,15 +7,15 @@ import { SearchIcon } from "./icons";
 const MESSAGES: Record<ReceiptLookupResponse["status"], { tone: string; text: string }> = {
   included: {
     tone: "border-mint-300 bg-mint-50 text-mint-800",
-    text: "✓ Found it! Your ballot is in the count. 🎉",
+    text: "Found it. Your ballot is in the count.",
   },
   included_replaced: {
     tone: "border-sunshine-300 bg-sunshine-50 text-sunshine-800",
-    text: "✓ Found — but this receipt was replaced by a later ballot, so it is not the one counted. Search your most recent receipt to confirm the counted one.",
+    text: "Found, but this receipt was replaced by a later ballot, so it is not the one counted. Search your most recent receipt to confirm the counted one.",
   },
   not_found: {
     tone: "border-royal-200 bg-royal-50 text-ink/60",
-    text: "Not on this wall. Double-check the words — or make sure you're searching the right election.",
+    text: "Not on this wall. Double-check the words, and make sure you're searching the right election.",
   },
 };
 
@@ -62,8 +62,8 @@ export function ReceiptSearch({
         </div>
       )}
       <p className="text-xs font-semibold text-ink/45">
-        This only ever answers “is a ballot with this receipt included?” — it can't reveal how
-        anyone voted, and nobody can use it to prove a choice (INV-2).
+        This only ever answers one question: is a ballot with this receipt included? It cannot
+        reveal how anyone voted, and nobody can use it to prove a choice (INV-2).
       </p>
     </div>
   );

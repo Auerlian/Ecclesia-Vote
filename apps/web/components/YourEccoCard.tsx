@@ -14,19 +14,19 @@ export function YourEccoCard() {
 
   return (
     <div className="card overflow-hidden p-0">
-      <div className="bg-dots flex justify-center from-royal-400 to-grape-500 pb-2 pt-4">
-        <Ecco size={104} {...profile.look} className="animate-float drop-shadow-lg" />
+      <div className="bg-flux flex justify-center pb-2 pt-4">
+        <Ecco size={104} {...profile.look} className="drop-shadow-lg" />
       </div>
       <div className="space-y-2 p-4">
         <div className="text-center">
           <div className="text-sm font-extrabold text-ink">{profile.name}</div>
           <div className="text-xs font-semibold text-ink/45">
-            {profile.hasVoted ? "Voted in the demo 🗳️" : "Hasn't voted yet"}
+            {profile.hasVoted ? "Demo voter" : "Hasn't voted yet"}
           </div>
         </div>
         <div className="flex items-center justify-between rounded-2xl bg-sunshine-50 px-3 py-2">
           <span className="text-xs font-extrabold text-sunshine-800">
-            🎁 Wardrobe {unlocked}/{total}
+            Wardrobe {unlocked}/{total}
           </span>
           {!profile.hasVoted && (
             <span className="text-[11px] font-bold text-sunshine-700">vote to unlock</span>

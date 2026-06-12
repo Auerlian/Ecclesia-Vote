@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import type { ComponentType } from "react";
 import { CandidateCard } from "./CandidateCard";
 import { Confetti } from "./Confetti";
 import { ReceiptAssembly } from "./ReceiptAssembly";
-import { unlockWardrobe } from "./useEccoProfile";
+import { recordBallotCast } from "./useEccoProfile";
+import { CheckCircleIcon, LockIcon, MinusCircleIcon, SearchIcon, XCircleIcon } from "./icons";
 import type { CandidateProfile } from "@/lib/candidates";
 
 type Stage = "choose" | "challenge" | "audited" | "assemble" | "receipt";
@@ -86,29 +88,39 @@ export interface VoteFlowProps {
   beginCeremony: () => Promise<{ seedHex: string; mascot: string }>;
 }
 
-const YES_NO_CHOICES = [
+const YES_NO_CHOICES: Array<{
+  id: string;
+  label: string;
+  icon: ComponentType<{ size?: number; className?: string }>;
+  iconClass: string;
+  card: string;
+  active: string;
+}> = [
   {
     id: "yes",
     label: "Yes",
-    emoji: "👍",
+    icon: CheckCircleIcon,
+    iconClass: "text-mint-600",
     card: "border-mint-300 hover:border-mint-500 hover:bg-mint-50",
     active: "border-mint-500 bg-mint-50",
   },
   {
     id: "no",
     label: "No",
-    emoji: "👎",
+    icon: XCircleIcon,
+    iconClass: "text-coral-600",
     card: "border-coral-300 hover:border-coral-500 hover:bg-coral-50",
     active: "border-coral-500 bg-coral-50",
   },
   {
     id: "abstain",
     label: "Abstain",
-    emoji: "🤷",
+    icon: MinusCircleIcon,
+    iconClass: "text-royal-400",
     card: "border-royal-100 hover:border-royal-300 hover:bg-royal-50",
     active: "border-royal-400 bg-royal-50",
   },
-] as const;
+];
 
 export function VoteFlow({
   title,
@@ -168,13 +180,13 @@ export function VoteFlow({
 
       <div className="card space-y-4 p-5 sm:p-6">
         {stage === "choose" && (
-          <div className="space-y-4 animate-pop-in">
+          <div className="animate-pop-in space-y-4">
             <div>
               <h2 className="text-lg font-black text-ink">{title}</h2>
               <p className="text-sm font-semibold text-ink/55">
                 {voteType === "yes_no"
-                  ? "Pick a side (or sit on the fence). Encrypted in your browser before anything is sent."
-                  : "Pick your candidate. Encrypted in your browser before anything is sent."}
+                  ? "Pick a side, or abstain. Your choice is encrypted in your browser before anything is sent."
+                  : "Pick your candidate. Your choice is encrypted in your browser before anything is sent."}
               </p>
             </div>
 
@@ -189,8 +201,8 @@ export function VoteFlow({
                       choice === c.id ? c.active : c.card
                     }`}
                   >
-                    <div className="text-3xl">{c.emoji}</div>
-                    <div className="mt-1 text-base font-black text-ink">{c.label}</div>
+                    <c.icon size={34} className={`mx-auto ${c.iconClass}`} />
+                    <div className="mt-2 text-base font-black text-ink">{c.label}</div>
                   </button>
                 ))}
               </div>
@@ -214,7 +226,7 @@ export function VoteFlow({
                         : "border-dashed border-royal-200 bg-white text-ink/50 hover:border-royal-400"
                     }`}
                   >
-                    🤷 Abstain — be counted without picking anyone
+                    Abstain: be counted without picking anyone
                   </button>
                 )}
               </div>
@@ -225,41 +237,44 @@ export function VoteFlow({
               disabled={!choice}
               className="btn-primary w-full sm:w-auto"
             >
-              🔐 Encrypt my ballot
+              <LockIcon size={16} />
+              Encrypt my ballot
             </button>
           </div>
         )}
 
         {stage === "challenge" && commit && (
-          <div className="space-y-4 animate-pop-in">
+          <div className="animate-pop-in space-y-4">
             <div className="rounded-2xl bg-royal-50 p-4">
-              <div className="text-sm font-extrabold text-ink">
-                Your ballot is encrypted and locked in 🔒
+              <div className="flex items-center gap-2 text-sm font-extrabold text-ink">
+                <LockIcon size={16} className="text-royal-500" />
+                Your ballot is encrypted and locked in
               </div>
               <p className="mt-1 text-sm font-semibold text-ink/60">
-                Choice: <strong className="text-ink">{choiceLabel}</strong> — sealed under this
+                Choice: <strong className="text-ink">{choiceLabel}</strong>, sealed under this
                 commitment:
               </p>
               <p className="hashmono mt-2">{commit.hash}</p>
             </div>
             <p className="text-sm font-semibold text-ink/60">
-              Now <strong className="text-ink">cast</strong> it — or play inspector 🕵️ and{" "}
-              <strong className="text-ink">audit</strong> it to catch the system cheating. You
-              choose <em>after</em> it's locked, so it can't cheat selectively.
+              Now <strong className="text-ink">cast</strong> it, or play inspector and{" "}
+              <strong className="text-ink">audit</strong> it to check the system isn't cheating. You
+              choose <em>after</em> it is locked, so the system cannot cheat selectively.
             </p>
             <div className="flex flex-wrap gap-3">
               <button onClick={doCast} disabled={busy} className="btn-coral">
-                {busy ? "Preparing…" : "🗳️ Cast this ballot"}
+                {busy ? "Preparing" : "Cast this ballot"}
               </button>
               <button onClick={doAudit} className="btn-ghost">
-                🕵️ Audit it instead
+                <SearchIcon size={16} />
+                Audit it instead
               </button>
             </div>
             <details className="text-xs font-semibold text-ink/50">
               <summary className="cursor-pointer font-extrabold">What's happening here?</summary>
               <p className="mt-1">
                 A Benaloh challenge. Auditing reveals the randomness so you can confirm the
-                ciphertext encodes your choice. Audited ballots are discarded and never counted —
+                ciphertext encodes your choice. Audited ballots are discarded and never counted,
                 which is exactly why a cast ballot can never be proven to anyone.
               </p>
             </details>
@@ -267,7 +282,7 @@ export function VoteFlow({
         )}
 
         {stage === "audited" && audit && (
-          <div className="space-y-4 animate-pop-in">
+          <div className="animate-pop-in space-y-4">
             <div
               className={`rounded-2xl border-2 p-4 text-sm font-extrabold ${
                 audit.ok
@@ -276,8 +291,8 @@ export function VoteFlow({
               }`}
             >
               {audit.ok
-                ? "✓ Verified! The encryption really does contain your choice. The system didn't cheat."
-                : "✗ Mismatch — this would be evidence of cheating."}
+                ? "Verified. The encryption really does contain your choice; the system didn't cheat."
+                : "Mismatch. This would be evidence of cheating."}
             </div>
             <dl className="space-y-1 rounded-2xl bg-royal-50 p-4 text-xs font-semibold text-ink/60">
               <div>
@@ -290,11 +305,12 @@ export function VoteFlow({
               </div>
             </dl>
             <p className="text-sm font-semibold text-ink/60">
-              This audited ballot is now spoiled and thrown away — that's the rule that keeps cast
+              This audited ballot is now spoiled and thrown away. That rule is what keeps cast
               ballots unprovable. Encrypt a fresh one to vote for real.
             </p>
             <button onClick={() => choice && encrypt(choice)} className="btn-primary">
-              🔐 Encrypt again
+              <LockIcon size={16} />
+              Encrypt again
             </button>
           </div>
         )}
@@ -304,7 +320,7 @@ export function VoteFlow({
             seedHex={ceremony.seedHex}
             onSealed={(display, canonical) => {
               setReceipt({ display, canonical, mascot: ceremony.mascot });
-              unlockWardrobe();
+              recordBallotCast();
               setStage("receipt");
             }}
           />
@@ -314,9 +330,9 @@ export function VoteFlow({
           <div className="space-y-4">
             <Confetti />
             <div className="text-center">
-              <h2 className="text-xl font-black text-ink">Your ballot is in the box! 🎉</h2>
+              <h2 className="text-xl font-black text-ink">Your ballot is in the box</h2>
               <p className="text-sm font-semibold text-ink/55">
-                This receipt is yours to keep. It proves your ballot is counted — and can never
+                This receipt is yours to keep. It proves your ballot is counted, and it can never
                 reveal how you voted.
               </p>
             </div>
@@ -331,13 +347,13 @@ export function VoteFlow({
                   <div className="text-[11px] font-extrabold uppercase tracking-wide text-sunshine-700">
                     Official receipt · keep me
                   </div>
-                  <div className="mt-1 break-all font-mono text-lg font-bold text-ink">
+                  <div className="mt-1 break-words font-mono text-lg font-bold text-ink">
                     {receipt.display}
                   </div>
                   {receipt.display !== receipt.canonical && (
                     <div className="mt-1 text-[11px] font-semibold text-ink/50">
-                      Wall version: <span className="font-mono">{receipt.canonical}</span> — both
-                      are interchangeable, on purpose.
+                      Wall version: <span className="font-mono">{receipt.canonical}</span>. Both are
+                      interchangeable, on purpose.
                     </div>
                   )}
                 </div>
@@ -345,7 +361,7 @@ export function VoteFlow({
             </div>
 
             <div className="rounded-2xl bg-grape-50 px-4 py-3 text-center text-sm font-extrabold text-grape-700">
-              🎁 Wardrobe unlocked — your Ecco just earned new accessories!
+              Wardrobe unlocked: your Ecco just earned new accessories.
             </div>
 
             <div className="flex flex-wrap justify-center gap-2">

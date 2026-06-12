@@ -134,7 +134,7 @@ async function build(): Promise<DemoData> {
     {
       electionId: PRESIDENT_ELECTION_ID,
       organisationSlug: DEMO_ORG_SLUG,
-      title: "Society President — Spring Election",
+      title: "Society President: Spring Election",
       voteType: "multiple_choice",
       options: PRESIDENT_CANDIDATES.map((c, position) => ({
         optionId: c.optionId,

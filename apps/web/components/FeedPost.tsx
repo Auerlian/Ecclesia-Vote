@@ -51,8 +51,8 @@ export function FeedPost({
   return (
     <article className="card card-hover overflow-hidden p-0">
       {pinned && (
-        <div className="flex items-center gap-1.5 bg-royal-500 px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wide text-white">
-          📌 Pinned
+        <div className="bg-royal-500 px-5 py-1.5 text-[11px] font-extrabold uppercase tracking-wide text-white">
+          Pinned
         </div>
       )}
       <div className="flex items-center gap-3 px-5 pb-3 pt-4">
