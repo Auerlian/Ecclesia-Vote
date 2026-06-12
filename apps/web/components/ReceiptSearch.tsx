@@ -2,27 +2,30 @@
 
 import { useState, useTransition } from "react";
 import type { ReceiptLookupResponse } from "@ecclesia/shared";
+import { SearchIcon } from "./icons";
 
 const MESSAGES: Record<ReceiptLookupResponse["status"], { tone: string; text: string }> = {
   included: {
-    tone: "border-green-300 bg-green-50 text-green-900",
-    text: "✓ Your ballot is in the count.",
+    tone: "border-mint-300 bg-mint-50 text-mint-800",
+    text: "✓ Found it! Your ballot is in the count. 🎉",
   },
   included_replaced: {
-    tone: "border-amber-300 bg-amber-50 text-amber-900",
+    tone: "border-sunshine-300 bg-sunshine-50 text-sunshine-800",
     text: "✓ Found — but this receipt was replaced by a later ballot, so it is not the one counted. Search your most recent receipt to confirm the counted one.",
   },
   not_found: {
-    tone: "border-slate-300 bg-slate-50 text-slate-700",
-    text: "Not found on this board.",
+    tone: "border-royal-200 bg-royal-50 text-ink/60",
+    text: "Not on this wall. Double-check the words — or make sure you're searching the right election.",
   },
 };
 
 export function ReceiptSearch({
+  electionId,
   search,
   example,
 }: {
-  search: (phrase: string) => Promise<ReceiptLookupResponse>;
+  electionId: string;
+  search: (electionId: string, phrase: string) => Promise<ReceiptLookupResponse>;
   example: string;
 }) {
   const [phrase, setPhrase] = useState("");
@@ -31,7 +34,7 @@ export function ReceiptSearch({
 
   function run() {
     if (!phrase.trim()) return;
-    startTransition(async () => setResult(await search(phrase)));
+    startTransition(async () => setResult(await search(electionId, phrase)));
   }
 
   return (
@@ -41,26 +44,26 @@ export function ReceiptSearch({
           value={phrase}
           onChange={(e) => setPhrase(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && run()}
-          placeholder={example || "adjective-noun-animal-1234"}
+          placeholder={example || "adjective-noun-animal-12-34-56"}
           aria-label="Receipt phrase"
-          className="flex-1 rounded-lg border border-slate-300 px-3 py-2 font-mono text-sm"
+          className="flex-1 rounded-2xl border-2 border-royal-100 bg-white px-4 py-2.5 font-mono text-sm font-bold text-ink outline-none transition placeholder:font-sans placeholder:font-semibold placeholder:text-ink/30 focus:border-royal-400"
         />
-        <button
-          onClick={run}
-          disabled={pending}
-          className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
-        >
+        <button onClick={run} disabled={pending} className="btn-primary">
+          <SearchIcon size={16} />
           {pending ? "Checking…" : "Find my receipt"}
         </button>
       </div>
       {result && (
-        <div className={`rounded-lg border p-3 text-sm ${MESSAGES[result.status].tone}`}>
+        <div
+          className={`animate-pop-in rounded-2xl border-2 p-3.5 text-sm font-extrabold ${MESSAGES[result.status].tone}`}
+          role="status"
+        >
           {MESSAGES[result.status].text}
         </div>
       )}
-      <p className="text-xs text-slate-500">
-        This only confirms whether a ballot is included. It never reveals how anyone voted, and
-        nobody can use it to prove a choice (INV-2).
+      <p className="text-xs font-semibold text-ink/45">
+        This only ever answers “is a ballot with this receipt included?” — it can't reveal how
+        anyone voted, and nobody can use it to prove a choice (INV-2).
       </p>
     </div>
   );

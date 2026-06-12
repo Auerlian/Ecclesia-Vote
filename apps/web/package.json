@@ -17,6 +17,7 @@
     "@ecclesia/receipt": "workspace:*",
     "@ecclesia/shared": "workspace:*",
     "@ecclesia/tally": "workspace:*",
+    "@fontsource-variable/nunito": "^5.2.7",
     "next": "^15.1.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
